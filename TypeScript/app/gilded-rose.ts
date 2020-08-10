@@ -59,6 +59,10 @@ const itemCategories = {
       return qualityAddition >= 50 ? 50 : qualityAddition;
     }
   } as IItemCategoryUpdates,
+  [ItemCategory.Sulfuras]: {
+    updateSellIn: (sellIn: number): number => sellIn,
+    updateQuality: (quality: number, sellIn: number): number => quality
+  } as IItemCategoryUpdates,
   [ItemCategory.BackstagePasses]: {
     updateSellIn: (sellIn: number): number => sellIn - 1,
     updateQuality: (quality: number, sellIn: number): number => {

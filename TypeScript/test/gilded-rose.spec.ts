@@ -3,7 +3,7 @@ import { updateQuality, ItemCategory } from '../app/gilded-rose';
 
 describe('Gilded Rose', () => {
   it('should handle an empty list of items', () => {
-    const items = updateQuality([]);
+    const items = updateQuality();
     expect(items.length).to.equal(0);
   });
 
@@ -72,21 +72,23 @@ describe('Gilded Rose', () => {
     });
   });
 
-  // describe('Sulfuras', () => {
-  //   const sulfurasName = 'Sulfuras, Hand of Ragnaros';
-  //   it('should not decrease the quality and sellIn value', () => {
-  //     const gildedRose = new GildedRose([new Item(sulfurasName, 6, 24)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].sellIn).to.equal(6);
-  //     expect(items[0].quality).to.equal(24);
-  //   });
+  describe('Sulfuras', () => {
+    const name = 'Sulfuras, Hand of Ragnaros';
+    const type = ItemCategory.Sulfuras;
 
-  //   it('should not decrease the quality even when the sell by date has passed', () => {
-  //     const gildedRose = new GildedRose([new Item(sulfurasName, -1, 24)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).to.equal(24);
-  //   });
-  // });
+    it('should not decrease the quality and sellIn value', () => {
+      const sulfurasItems = [{ name, sellIn: 6, quality: 24, type }];
+      const items = updateQuality(sulfurasItems);
+      expect(items[0].sellIn).to.equal(6);
+      expect(items[0].quality).to.equal(24);
+    });
+
+    it('should not decrease the quality even when the sell by date has passed', () => {
+      const sulfurasItems = [{ name, sellIn: -1, quality: 24, type }];
+      const items = updateQuality(sulfurasItems);
+      expect(items[0].quality).to.equal(24);
+    });
+  });
 
   describe('Backstage Passes', () => {
     const name = 'Backstage passes to a TAFKAL80ETC concert';
