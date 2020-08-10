@@ -27,16 +27,28 @@ export interface IExtendedItem extends IItem {
   type: ItemCategory;
 }
 
+export interface IItemCategoryUpdates {
+  updateSellIn: (sellIn: number) => number;
+  updateQuality: (quality: number, sellIn: number) => number;
+}
+
 const itemCategories = {
   [ItemCategory.Default]: {
     updateSellIn: (sellIn: number): number => sellIn - 1,
     updateQuality: (quality: number, sellIn: number): number => {
       const qualityModifier = sellIn < 0 ? 2 : 1;
-      return quality === 0 || quality - qualityModifier <= 0
-        ? 0
-        : quality - qualityModifier;
+      const qualityDifference = quality - qualityModifier;
+      return qualityDifference <= 0 ? 0 : qualityDifference;
     }
-  }
+  } as IItemCategoryUpdates,
+  [ItemCategory.Brie]: {
+    updateSellIn: (sellIn: number): number => sellIn - 1,
+    updateQuality: (quality: number, sellIn: number): number => {
+      const qualityModifier = sellIn < 0 ? 2 : 1;
+      const qualityAddition = quality + qualityModifier;
+      return qualityAddition >= 50 ? 50 : qualityAddition;
+    }
+  } as IItemCategoryUpdates
 };
 
 export const updateQuality = (items: IExtendedItem[] = []): IExtendedItem[] => {

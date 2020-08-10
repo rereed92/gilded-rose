@@ -1,10 +1,8 @@
 import { expect } from 'chai';
 import { updateQuality, ItemCategory } from '../app/gilded-rose';
-// import { Item, GildedRose } from '../app/gilded-rose';
 
 describe('Gilded Rose', () => {
   it('should handle an empty list of items', () => {
-    // const gildedRose = new GildedRose();
     const items = updateQuality([]);
     expect(items.length).to.equal(0);
   });
@@ -38,38 +36,39 @@ describe('Gilded Rose', () => {
     });
   });
 
-  // describe('Aged Brie', () => {
-  //   const brieName = 'Aged Brie';
-  //   it('should increase the quality by one', () => {
-  //     const gildedRose = new GildedRose([new Item(brieName, 2, 12)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).to.equal(13);
-  //   });
+  describe('Aged Brie', () => {
+    const name = 'Aged Brie';
+    const type = ItemCategory.Brie;
+    it('should increase the quality by one', () => {
+      const brieItems = [{ name, sellIn: 2, quality: 12, type }];
+      const items = updateQuality(brieItems);
+      expect(items[0].quality).to.equal(13);
+    });
 
-  //   it('should increase the quality by two when the sell by date has passed', () => {
-  //     const gildedRose = new GildedRose([new Item(brieName, -1, 12)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).to.equal(14);
-  //   });
+    it('should increase the quality by two when the sell by date has passed', () => {
+      const brieItems = [{ name, sellIn: -1, quality: 12, type }];
+      const items = updateQuality(brieItems);
+      expect(items[0].quality).to.equal(14);
+    });
 
-  //   it('should not increase the quality above 50 if the quality is already 50', () => {
-  //     const gildedRose = new GildedRose([new Item(brieName, 2, 50)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).to.equal(50);
-  //   });
+    it('should not increase the quality above 50 if the quality is already 50', () => {
+      const brieItems = [{ name, sellIn: 2, quality: 50, type }];
+      const items = updateQuality(brieItems);
+      expect(items[0].quality).to.equal(50);
+    });
 
-  //   it('should ensure the new quality does not go above 50', () => {
-  //     const gildedRose = new GildedRose([new Item(brieName, 2, 49)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).to.equal(50);
-  //   });
+    it('should ensure the new quality does not go above 50', () => {
+      const brieItems = [{ name, sellIn: 2, quality: 49, type }];
+      const items = updateQuality(brieItems);
+      expect(items[0].quality).to.equal(50);
+    });
 
-  //   it('should ensure the new quality does not go above 50 once the sell by date has passed', () => {
-  //     const gildedRose = new GildedRose([new Item(brieName, -1, 49)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).to.equal(50);
-  //   });
-  // });
+    it('should ensure the new quality does not go above 50 once the sell by date has passed', () => {
+      const brieItems = [{ name, sellIn: -1, quality: 49, type }];
+      const items = updateQuality(brieItems);
+      expect(items[0].quality).to.equal(50);
+    });
+  });
 
   // describe('Sulfuras', () => {
   //   const sulfurasName = 'Sulfuras, Hand of Ragnaros';
