@@ -5,7 +5,7 @@ import {
   ICategorisedItem
 } from '../test/types';
 
-const backstagePassesQualityCalculator = (
+const calculateBackstagePassesQualityModifier = (
   quality: number,
   sellIn: number
 ): number => {
@@ -14,6 +14,11 @@ const backstagePassesQualityCalculator = (
   if (sellIn <= 10) return 2;
   return 1;
 };
+
+const calculateQualityModifier = (
+  sellIn: number,
+  multiplier: number = 1
+): number => (sellIn < 0 ? 2 : 1) * multiplier;
 
 const updateCategoryQuality = (
   quality: number,
@@ -47,7 +52,7 @@ const categoryUpdateQuality = (
     case ItemCategory.Brie:
       return {
         updateQuality: (quality: number, sellIn: number): number => {
-          const qualityModifier = sellIn < 0 ? 2 : 1;
+          const qualityModifier = calculateQualityModifier(sellIn);
           return updateCategoryQuality(quality, qualityModifier);
         }
       };
@@ -58,7 +63,7 @@ const categoryUpdateQuality = (
     case ItemCategory.BackstagePasses:
       return {
         updateQuality: (quality: number, sellIn: number): number => {
-          const qualityModifier = backstagePassesQualityCalculator(
+          const qualityModifier = calculateBackstagePassesQualityModifier(
             quality,
             sellIn
           );
@@ -68,15 +73,15 @@ const categoryUpdateQuality = (
     case ItemCategory.Conjured:
       return {
         updateQuality: (quality: number, sellIn: number): number => {
-          const qualityModifier = sellIn < 0 ? 4 : 2;
-          return updateCategoryQuality(quality, qualityModifier * -1);
+          const qualityModifier = calculateQualityModifier(sellIn, -2);
+          return updateCategoryQuality(quality, qualityModifier);
         }
       };
     default:
       return {
         updateQuality: (quality: number, sellIn: number): number => {
-          const qualityModifier = sellIn < 0 ? 2 : 1;
-          return updateCategoryQuality(quality, qualityModifier * -1);
+          const qualityModifier = calculateQualityModifier(sellIn, -1);
+          return updateCategoryQuality(quality, qualityModifier);
         }
       };
   }
