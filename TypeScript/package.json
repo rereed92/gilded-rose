@@ -6,7 +6,8 @@
     "precompile": "rimraf app/**/*.js test/**/*.js",
     "compile": "tsc",
     "pretest": "rimraf app/**/*.js test/**/*.js",
-    "test": "nyc mocha"
+    "test": "nyc mocha",
+    "lint": "eslint '*/**/*.ts' --fix"
   },
   "license": "MIT",
   "private": true,
@@ -14,13 +15,22 @@
     "@types/chai": "~3.5.2",
     "@types/mocha": "~2.2.41",
     "@types/node": "~7.0.18",
+    "@typescript-eslint/eslint-plugin": "^3.8.0",
+    "@typescript-eslint/parser": "^3.8.0",
     "chai": "~3.5.0",
+    "eslint": "^7.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
     "mocha": "~3.2.0",
     "nyc": "~11.0.3",
+    "prettier": "^2.0.5",
     "rimraf": "~2.5.2",
     "source-map-support": "0.5.9",
     "ts-node": "~3.1.0",
-    "typescript": "~3.0.3"
+    "typescript": "^3.9.7"
   },
   "nyc": {
     "extension": [
@@ -37,6 +47,16 @@
       "html",
       "text"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "prettier --write",
+      "yarn lint:js"
+    ]
   }
 }
-
