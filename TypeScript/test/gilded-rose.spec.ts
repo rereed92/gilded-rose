@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import { updateQuality, ItemCategory } from '../app/gilded-rose';
+import { updateQuality } from '../app/gilded-rose';
+import { ItemCategory } from './types';
 
 describe('Gilded Rose', () => {
   it('should handle an empty list of items', () => {

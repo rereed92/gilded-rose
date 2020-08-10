@@ -1,4 +1,5 @@
-import { updateQuality, ItemCategory } from '../app/gilded-rose';
+import { updateQuality } from '../app/gilded-rose';
+import { ItemCategory } from './types';
 
 const items = [
   {
