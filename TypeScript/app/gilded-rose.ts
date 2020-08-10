@@ -30,41 +30,50 @@ const backstagePassesQualityCalculator = (
   return 1;
 };
 
-const itemCategories = {
-  [ItemCategory.Default]: {
-    updateSellIn: (sellIn: number): number => sellIn - 1,
-    updateQuality: (quality: number, sellIn: number): number => {
-      const qualityModifier = sellIn < 0 ? 2 : 1;
-      const qualityDifference = quality - qualityModifier;
-      return qualityDifference <= 0 ? 0 : qualityDifference;
-    }
-  } as IItemCategoryUpdates,
-  [ItemCategory.Brie]: {
-    updateSellIn: (sellIn: number): number => sellIn - 1,
-    updateQuality: (quality: number, sellIn: number): number => {
-      const qualityModifier = sellIn < 0 ? 2 : 1;
-      const qualityAddition = quality + qualityModifier;
-      return qualityAddition >= 50 ? 50 : qualityAddition;
-    }
-  } as IItemCategoryUpdates,
-  [ItemCategory.Sulfuras]: {
-    updateSellIn: (sellIn: number): number => sellIn,
-    updateQuality: (quality: number, sellIn: number): number => quality
-  } as IItemCategoryUpdates,
-  [ItemCategory.BackstagePasses]: {
-    updateSellIn: (sellIn: number): number => sellIn - 1,
-    updateQuality: (quality: number, sellIn: number): number => {
-      const qualityModifier = backstagePassesQualityCalculator(quality, sellIn);
-      const qualityAddition = quality + qualityModifier;
-      return qualityAddition >= 50 ? 50 : qualityAddition;
-    }
-  } as IItemCategoryUpdates
+const categoryUpdates = (type: ItemCategory): IItemCategoryUpdates => {
+  switch (type) {
+    case ItemCategory.Brie:
+      return {
+        updateSellIn: (sellIn: number): number => sellIn - 1,
+        updateQuality: (quality: number, sellIn: number): number => {
+          const qualityModifier = sellIn < 0 ? 2 : 1;
+          const qualityAddition = quality + qualityModifier;
+          return qualityAddition >= 50 ? 50 : qualityAddition;
+        }
+      };
+    case ItemCategory.Sulfuras:
+      return {
+        updateSellIn: (sellIn: number): number => sellIn,
+        updateQuality: (quality: number, sellIn: number): number => quality
+      };
+    case ItemCategory.BackstagePasses:
+      return {
+        updateSellIn: (sellIn: number): number => sellIn - 1,
+        updateQuality: (quality: number, sellIn: number): number => {
+          const qualityModifier = backstagePassesQualityCalculator(
+            quality,
+            sellIn
+          );
+          const qualityAddition = quality + qualityModifier;
+          return qualityAddition >= 50 ? 50 : qualityAddition;
+        }
+      };
+    default:
+      return {
+        updateSellIn: (sellIn: number): number => sellIn - 1,
+        updateQuality: (quality: number, sellIn: number): number => {
+          const qualityModifier = sellIn < 0 ? 2 : 1;
+          const qualityDifference = quality - qualityModifier;
+          return qualityDifference <= 0 ? 0 : qualityDifference;
+        }
+      };
+  }
 };
 
 export const updateQuality = (items: IExtendedItem[] = []): IExtendedItem[] => {
   return items.map((item: IExtendedItem) => ({
     ...item,
-    sellIn: itemCategories[item.type].updateSellIn(item.sellIn),
-    quality: itemCategories[item.type].updateQuality(item.quality, item.sellIn)
+    sellIn: categoryUpdates(item.type).updateSellIn(item.sellIn),
+    quality: categoryUpdates(item.type).updateQuality(item.quality, item.sellIn)
   }));
 };
