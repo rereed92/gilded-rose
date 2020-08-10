@@ -2,7 +2,7 @@ import {
   ItemCategory,
   IItemCategoryUpdateSellIn,
   IItemCategoryUpdateQuality,
-  IExtendedItem
+  ICategorisedItem
 } from '../test/types';
 
 const backstagePassesQualityCalculator = (
@@ -82,8 +82,10 @@ const categoryUpdateQuality = (
   }
 };
 
-export const updateQuality = (items: IExtendedItem[] = []): IExtendedItem[] => {
-  return items.map((item: IExtendedItem) => ({
+export const updateQuality = (
+  items: ICategorisedItem[] = []
+): ICategorisedItem[] => {
+  return items.map((item: ICategorisedItem) => ({
     ...item,
     sellIn: categoryUpdateSellIn(item.category).updateSellIn(item.sellIn),
     quality: categoryUpdateQuality(item.category).updateQuality(
