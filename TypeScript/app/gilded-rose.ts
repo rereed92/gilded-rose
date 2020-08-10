@@ -1,4 +1,4 @@
-import { ICategorisedItem } from '../test/types';
+import { ICategorisedItem } from './types';
 import { categoryUpdateSellIn } from './sellIn';
 import { categoryUpdateQuality } from './quality';
 

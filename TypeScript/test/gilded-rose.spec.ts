@@ -7,7 +7,7 @@ import {
   SulfurasItem,
   BackstagePassesItem,
   ConjuredItem
-} from './types';
+} from '../app/types';
 
 describe('Gilded Rose', () => {
   it('should handle an empty list of items', () => {

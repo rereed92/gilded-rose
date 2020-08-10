@@ -1,4 +1,4 @@
-import { ItemCategory, IItemCategoryUpdateQuality } from '../test/types';
+import { ItemCategory, IItemCategoryUpdateQuality } from './types';
 
 const calculateBackstagePassesQualityModifier = (
   quality: number,

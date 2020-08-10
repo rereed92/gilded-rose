@@ -1,4 +1,4 @@
-import { ItemCategory, IItemCategoryUpdateSellIn } from '../test/types';
+import { ItemCategory, IItemCategoryUpdateSellIn } from './types';
 
 export const categoryUpdateSellIn = (
   category: ItemCategory
