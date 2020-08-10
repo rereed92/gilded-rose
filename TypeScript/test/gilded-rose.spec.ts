@@ -166,4 +166,34 @@ describe('Gilded Rose', () => {
       expect(items[0].quality).to.equal(0);
     });
   });
+
+  describe('Conjoured', () => {
+    const name = 'Conjoured';
+    const category = ItemCategory.Conjured;
+
+    it('should decrease the quality by two and sellIn value by one for an item', () => {
+      const counjouredItems = [{ name, sellIn: 2, quality: 18, category }];
+      const items = updateQuality(counjouredItems);
+      expect(items[0].sellIn).to.equal(1);
+      expect(items[0].quality).to.equal(16);
+    });
+
+    it('should decrease the quality by four once the sell by date has passed', () => {
+      const counjouredItems = [{ name, sellIn: -1, quality: 10, category }];
+      const items = updateQuality(counjouredItems);
+      expect(items[0].quality).to.equal(6);
+    });
+
+    it('should ensure the quality does not go below zero once the sell by date has passed', () => {
+      const counjouredItems = [{ name, sellIn: -1, quality: 1, category }];
+      const items = updateQuality(counjouredItems);
+      expect(items[0].quality).to.equal(0);
+    });
+
+    it('should never return a negative quality', () => {
+      const counjouredItems = [{ name, sellIn: 2, quality: 1, category }];
+      const items = updateQuality(counjouredItems);
+      expect(items[0].quality).to.equal(0);
+    });
+  });
 });

@@ -8,7 +8,8 @@ export enum ItemCategory {
   Default = 'DEFAULT',
   Brie = 'BRIE',
   Sulfuras = 'SULFURAS',
-  BackstagePasses = 'BACKSTAGE_PASSES'
+  BackstagePasses = 'BACKSTAGE_PASSES',
+  Conjured = 'CONJURED'
 }
 
 export interface IExtendedItem extends IItem {
@@ -81,6 +82,13 @@ const categoryUpdateQuality = (
             sellIn
           );
           return updateCategoryQuality(quality, qualityModifier);
+        }
+      };
+    case ItemCategory.Conjured:
+      return {
+        updateQuality: (quality: number, sellIn: number): number => {
+          const qualityModifier = sellIn < 0 ? 4 : 2;
+          return updateCategoryQuality(quality, qualityModifier * -1);
         }
       };
     default:
