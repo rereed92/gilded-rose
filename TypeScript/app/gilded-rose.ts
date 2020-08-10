@@ -12,11 +12,14 @@ export enum ItemCategory {
 }
 
 export interface IExtendedItem extends IItem {
-  type: ItemCategory;
+  category: ItemCategory;
 }
 
-export interface IItemCategoryUpdates {
+export interface IItemCategoryUpdateSellIn {
   updateSellIn: (sellIn: number) => number;
+}
+
+export interface IItemCategoryUpdateQuality {
   updateQuality: (quality: number, sellIn: number) => number;
 }
 
@@ -30,8 +33,6 @@ const backstagePassesQualityCalculator = (
   return 1;
 };
 
-const updateCategorySellIn = (sellIn: number): number => sellIn - 1;
-
 const updateCategoryQuality = (
   quality: number,
   qualityModifier: number
@@ -42,11 +43,27 @@ const updateCategoryQuality = (
   return newQuality;
 };
 
-const categoryUpdates = (type: ItemCategory): IItemCategoryUpdates => {
-  switch (type) {
+const categoryUpdateSellIn = (
+  category: ItemCategory
+): IItemCategoryUpdateSellIn => {
+  switch (category) {
+    case ItemCategory.Sulfuras:
+      return {
+        updateSellIn: (sellIn: number): number => sellIn
+      };
+    default:
+      return {
+        updateSellIn: (sellIn: number): number => sellIn - 1
+      };
+  }
+};
+
+const categoryUpdateQuality = (
+  category: ItemCategory
+): IItemCategoryUpdateQuality => {
+  switch (category) {
     case ItemCategory.Brie:
       return {
-        updateSellIn: (sellIn: number): number => updateCategorySellIn(sellIn),
         updateQuality: (quality: number, sellIn: number): number => {
           const qualityModifier = sellIn < 0 ? 2 : 1;
           return updateCategoryQuality(quality, qualityModifier);
@@ -54,12 +71,10 @@ const categoryUpdates = (type: ItemCategory): IItemCategoryUpdates => {
       };
     case ItemCategory.Sulfuras:
       return {
-        updateSellIn: (sellIn: number): number => sellIn,
         updateQuality: (quality: number, sellIn: number): number => quality
       };
     case ItemCategory.BackstagePasses:
       return {
-        updateSellIn: (sellIn: number): number => updateCategorySellIn(sellIn),
         updateQuality: (quality: number, sellIn: number): number => {
           const qualityModifier = backstagePassesQualityCalculator(
             quality,
@@ -70,7 +85,6 @@ const categoryUpdates = (type: ItemCategory): IItemCategoryUpdates => {
       };
     default:
       return {
-        updateSellIn: (sellIn: number): number => updateCategorySellIn(sellIn),
         updateQuality: (quality: number, sellIn: number): number => {
           const qualityModifier = sellIn < 0 ? 2 : 1;
           return updateCategoryQuality(quality, qualityModifier * -1);
@@ -82,7 +96,10 @@ const categoryUpdates = (type: ItemCategory): IItemCategoryUpdates => {
 export const updateQuality = (items: IExtendedItem[] = []): IExtendedItem[] => {
   return items.map((item: IExtendedItem) => ({
     ...item,
-    sellIn: categoryUpdates(item.type).updateSellIn(item.sellIn),
-    quality: categoryUpdates(item.type).updateQuality(item.quality, item.sellIn)
+    sellIn: categoryUpdateSellIn(item.category).updateSellIn(item.sellIn),
+    quality: categoryUpdateQuality(item.category).updateQuality(
+      item.quality,
+      item.sellIn
+    )
   }));
 };
