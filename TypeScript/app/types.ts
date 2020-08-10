@@ -7,7 +7,7 @@ export interface IItem {
 export enum ItemCategory {
   Default = 'DEFAULT',
   Brie = 'BRIE',
-  Sulfuras = 'SULFURAS',
+  Legendary = 'LEGENDARY',
   BackstagePasses = 'BACKSTAGE_PASSES',
   Conjured = 'CONJURED'
 }
@@ -33,8 +33,8 @@ export class BrieItem extends DefaultItem {
   category = ItemCategory.Brie;
 }
 
-export class SulfurasItem extends DefaultItem {
-  category = ItemCategory.Sulfuras;
+export class LegendaryItem extends DefaultItem {
+  category = ItemCategory.Legendary;
 
   constructor(name, sellIn) {
     super(name, sellIn, 80);

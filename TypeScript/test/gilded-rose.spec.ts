@@ -4,7 +4,7 @@ import {
   ItemCategory,
   DefaultItem,
   BrieItem,
-  SulfurasItem,
+  LegendaryItem,
   BackstagePassesItem,
   ConjuredItem
 } from '../app/types';
@@ -80,25 +80,23 @@ describe('Gilded Rose', () => {
 
   describe('Sulfuras', () => {
     const name = 'Sulfuras, Hand of Ragnaros';
-    const category = ItemCategory.Sulfuras;
 
     it('should not decrease the quality and sellIn value', () => {
-      const sulfurasItems = [new SulfurasItem(name, 6)];
-      const items = updateQuality(sulfurasItems);
+      const LegendaryItems = [new LegendaryItem(name, 6)];
+      const items = updateQuality(LegendaryItems);
       expect(items[0].sellIn).to.equal(6);
       expect(items[0].quality).to.equal(80);
     });
 
     it('should not decrease the quality even when the sell by date has passed', () => {
-      const sulfurasItems = [new SulfurasItem(name, -1)];
-      const items = updateQuality(sulfurasItems);
+      const LegendaryItems = [new LegendaryItem(name, -1)];
+      const items = updateQuality(LegendaryItems);
       expect(items[0].quality).to.equal(80);
     });
   });
 
   describe('Backstage Passes', () => {
     const name = 'Backstage passes to a TAFKAL80ETC concert';
-    const category = ItemCategory.BackstagePasses;
 
     it('should increase the quality by one', () => {
       const backstagePassesItems = [new BackstagePassesItem(name, 23, 27)];
@@ -169,7 +167,6 @@ describe('Gilded Rose', () => {
 
   describe('Conjoured', () => {
     const name = 'Conjoured';
-    const category = ItemCategory.Conjured;
 
     it('should decrease the quality by two and sellIn value by one for an item', () => {
       const counjouredItems = [new ConjuredItem(name, 2, 18)];
