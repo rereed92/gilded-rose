@@ -30,15 +30,26 @@ const backstagePassesQualityCalculator = (
   return 1;
 };
 
+const updateCategorySellIn = (sellIn: number): number => sellIn - 1;
+
+const updateCategoryQuality = (
+  quality: number,
+  qualityModifier: number
+): number => {
+  const newQuality = quality + qualityModifier;
+  if (newQuality >= 50) return 50;
+  if (newQuality <= 0) return 0;
+  return newQuality;
+};
+
 const categoryUpdates = (type: ItemCategory): IItemCategoryUpdates => {
   switch (type) {
     case ItemCategory.Brie:
       return {
-        updateSellIn: (sellIn: number): number => sellIn - 1,
+        updateSellIn: (sellIn: number): number => updateCategorySellIn(sellIn),
         updateQuality: (quality: number, sellIn: number): number => {
           const qualityModifier = sellIn < 0 ? 2 : 1;
-          const qualityAddition = quality + qualityModifier;
-          return qualityAddition >= 50 ? 50 : qualityAddition;
+          return updateCategoryQuality(quality, qualityModifier);
         }
       };
     case ItemCategory.Sulfuras:
@@ -48,23 +59,21 @@ const categoryUpdates = (type: ItemCategory): IItemCategoryUpdates => {
       };
     case ItemCategory.BackstagePasses:
       return {
-        updateSellIn: (sellIn: number): number => sellIn - 1,
+        updateSellIn: (sellIn: number): number => updateCategorySellIn(sellIn),
         updateQuality: (quality: number, sellIn: number): number => {
           const qualityModifier = backstagePassesQualityCalculator(
             quality,
             sellIn
           );
-          const qualityAddition = quality + qualityModifier;
-          return qualityAddition >= 50 ? 50 : qualityAddition;
+          return updateCategoryQuality(quality, qualityModifier);
         }
       };
     default:
       return {
-        updateSellIn: (sellIn: number): number => sellIn - 1,
+        updateSellIn: (sellIn: number): number => updateCategorySellIn(sellIn),
         updateQuality: (quality: number, sellIn: number): number => {
           const qualityModifier = sellIn < 0 ? 2 : 1;
-          const qualityDifference = quality - qualityModifier;
-          return qualityDifference <= 0 ? 0 : qualityDifference;
+          return updateCategoryQuality(quality, qualityModifier * -1);
         }
       };
   }
