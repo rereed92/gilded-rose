@@ -32,6 +32,16 @@ export interface IItemCategoryUpdates {
   updateQuality: (quality: number, sellIn: number) => number;
 }
 
+const backstagePassesQualityCalculator = (
+  quality: number,
+  sellIn: number
+): number => {
+  if (sellIn <= 0) return quality * -1;
+  if (sellIn <= 5) return 3;
+  if (sellIn <= 10) return 2;
+  return 1;
+};
+
 const itemCategories = {
   [ItemCategory.Default]: {
     updateSellIn: (sellIn: number): number => sellIn - 1,
@@ -45,6 +55,14 @@ const itemCategories = {
     updateSellIn: (sellIn: number): number => sellIn - 1,
     updateQuality: (quality: number, sellIn: number): number => {
       const qualityModifier = sellIn < 0 ? 2 : 1;
+      const qualityAddition = quality + qualityModifier;
+      return qualityAddition >= 50 ? 50 : qualityAddition;
+    }
+  } as IItemCategoryUpdates,
+  [ItemCategory.BackstagePasses]: {
+    updateSellIn: (sellIn: number): number => sellIn - 1,
+    updateQuality: (quality: number, sellIn: number): number => {
+      const qualityModifier = backstagePassesQualityCalculator(quality, sellIn);
       const qualityAddition = quality + qualityModifier;
       return qualityAddition >= 50 ? 50 : qualityAddition;
     }

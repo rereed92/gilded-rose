@@ -10,6 +10,7 @@ describe('Gilded Rose', () => {
   describe('Default Items', () => {
     const name = 'Item';
     const type = ItemCategory.Default;
+
     it('should decrease the quality and sellIn value by one for an item', () => {
       const defaultItems = [{ name, sellIn: 2, quality: 18, type }];
       const items = updateQuality(defaultItems);
@@ -39,6 +40,7 @@ describe('Gilded Rose', () => {
   describe('Aged Brie', () => {
     const name = 'Aged Brie';
     const type = ItemCategory.Brie;
+
     it('should increase the quality by one', () => {
       const brieItems = [{ name, sellIn: 2, quality: 12, type }];
       const items = updateQuality(brieItems);
@@ -86,72 +88,74 @@ describe('Gilded Rose', () => {
   //   });
   // });
 
-  // describe('Backstage Passes', () => {
-  //   const backstagePassName = 'Backstage passes to a TAFKAL80ETC concert';
-  //   it('should increase the quality by one', () => {
-  //     const gildedRose = new GildedRose([new Item(backstagePassName, 23, 27)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).to.equal(28);
-  //   });
+  describe('Backstage Passes', () => {
+    const name = 'Backstage passes to a TAFKAL80ETC concert';
+    const type = ItemCategory.BackstagePasses;
 
-  //   it('should increase the quality by two when there are ten days left', () => {
-  //     const gildedRose = new GildedRose([new Item(backstagePassName, 10, 27)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).to.equal(29);
-  //   });
+    it('should increase the quality by one', () => {
+      const backstagePassesItems = [{ name, sellIn: 23, quality: 27, type }];
+      const items = updateQuality(backstagePassesItems);
+      expect(items[0].quality).to.equal(28);
+    });
 
-  //   it('should increase the quality by two when there are less than ten days and more than five days left', () => {
-  //     const gildedRose = new GildedRose([new Item(backstagePassName, 6, 48)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).to.equal(50);
-  //   });
+    it('should increase the quality by two when there are ten days left', () => {
+      const backstagePassesItems = [{ name, sellIn: 10, quality: 27, type }];
+      const items = updateQuality(backstagePassesItems);
+      expect(items[0].quality).to.equal(29);
+    });
 
-  //   it('should not increase the quality above 50 when there are less than ten days and more than five days left', () => {
-  //     const gildedRose = new GildedRose([new Item(backstagePassName, 6, 49)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).to.equal(50);
-  //   });
+    it('should increase the quality by two when there are less than ten days and more than five days left', () => {
+      const backstagePassesItems = [{ name, sellIn: 6, quality: 48, type }];
+      const items = updateQuality(backstagePassesItems);
+      expect(items[0].quality).to.equal(50);
+    });
 
-  //   it('should not increase the quality above 50 when there are less than ten days and more than five days left and the quality is already 50', () => {
-  //     const gildedRose = new GildedRose([new Item(backstagePassName, 6, 50)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).to.equal(50);
-  //   });
+    it('should not increase the quality above 50 when there are less than ten days and more than five days left', () => {
+      const backstagePassesItems = [{ name, sellIn: 6, quality: 49, type }];
+      const items = updateQuality(backstagePassesItems);
+      expect(items[0].quality).to.equal(50);
+    });
 
-  //   it('should increase the quality by three when there are five days left', () => {
-  //     const gildedRose = new GildedRose([new Item(backstagePassName, 5, 27)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).to.equal(30);
-  //   });
+    it('should not increase the quality above 50 when there are less than ten days and more than five days left and the quality is already 50', () => {
+      const backstagePassesItems = [{ name, sellIn: 6, quality: 50, type }];
+      const items = updateQuality(backstagePassesItems);
+      expect(items[0].quality).to.equal(50);
+    });
 
-  //   it('should increase the quality by three when there are less than five days and more than zero days left', () => {
-  //     const gildedRose = new GildedRose([new Item(backstagePassName, 3, 47)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).to.equal(50);
-  //   });
+    it('should increase the quality by three when there are five days left', () => {
+      const backstagePassesItems = [{ name, sellIn: 5, quality: 27, type }];
+      const items = updateQuality(backstagePassesItems);
+      expect(items[0].quality).to.equal(30);
+    });
 
-  //   it('should not increase the quality above 50 when there are less than five days and more than zero days left', () => {
-  //     const gildedRose = new GildedRose([new Item(backstagePassName, 3, 49)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).to.equal(50);
-  //   });
+    it('should increase the quality by three when there are less than five days and more than zero days left', () => {
+      const backstagePassesItems = [{ name, sellIn: 3, quality: 47, type }];
+      const items = updateQuality(backstagePassesItems);
+      expect(items[0].quality).to.equal(50);
+    });
 
-  //   it('should not increase the quality above 50 when there are less than five days and more than zero days left and the quality is already 50', () => {
-  //     const gildedRose = new GildedRose([new Item(backstagePassName, 3, 50)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).to.equal(50);
-  //   });
+    it('should not increase the quality above 50 when there are less than five days and more than zero days left', () => {
+      const backstagePassesItems = [{ name, sellIn: 3, quality: 49, type }];
+      const items = updateQuality(backstagePassesItems);
+      expect(items[0].quality).to.equal(50);
+    });
 
-  //   it('should set the quality to zero when the concert is the current day', () => {
-  //     const gildedRose = new GildedRose([new Item(backstagePassName, 0, 27)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).to.equal(0);
-  //   });
+    it('should not increase the quality above 50 when there are less than five days and more than zero days left and the quality is already 50', () => {
+      const backstagePassesItems = [{ name, sellIn: 3, quality: 50, type }];
+      const items = updateQuality(backstagePassesItems);
+      expect(items[0].quality).to.equal(50);
+    });
 
-  //   it('should set the quality to zero when the concert has passed', () => {
-  //     const gildedRose = new GildedRose([new Item(backstagePassName, -1, 27)]);
-  //     const items = gildedRose.updateQuality();
-  //     expect(items[0].quality).to.equal(0);
-  //   });
-  // });
+    it('should set the quality to zero when the concert is the current day', () => {
+      const backstagePassesItems = [{ name, sellIn: 0, quality: 27, type }];
+      const items = updateQuality(backstagePassesItems);
+      expect(items[0].quality).to.equal(0);
+    });
+
+    it('should set the quality to zero when the concert has passed', () => {
+      const backstagePassesItems = [{ name, sellIn: -1, quality: 27, type }];
+      const items = updateQuality(backstagePassesItems);
+      expect(items[0].quality).to.equal(0);
+    });
+  });
 });
