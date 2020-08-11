@@ -1,5 +1,5 @@
 import { updateQuality } from '../app/gilded-rose';
-import { ItemCategory } from './types';
+import { ItemCategory } from '../app/types';
 
 const items = [
   {
@@ -19,13 +19,13 @@ const items = [
     name: 'Sulfuras, Hand of Ragnaros',
     sellIn: 0,
     quality: 80,
-    category: ItemCategory.Sulfuras
+    category: ItemCategory.Legendary
   },
   {
     name: 'Sulfuras, Hand of Ragnaros',
     sellIn: -1,
     quality: 80,
-    category: ItemCategory.Sulfuras
+    category: ItemCategory.Legendary
   },
   {
     name: 'Backstage passes to a TAFKAL80ETC concert',
