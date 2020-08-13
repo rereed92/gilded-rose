@@ -1,5 +1,25 @@
 # Gilded Rose
 
+## Notes
+
+### Assumptions Made
+
+- You cannot specify the quality of a Legendary item, it must always be 80
+- Changing the Item class to an interface will not upset the goblin
+- Once the sell by date of Brie has passed, the quality improves twice as fast
+- Sulfuras is a name of a `Legendary Item` rather than a class itself
+
+### Decisions Made
+
+- In order to not change the properties of Item, I created `ICategorisedItem`, however, normally I would have added the category to the Item interface
+- Added in linting and an editorconfig to improve code quality and consistency
+
+### Next Steps
+
+- Add in additional tests for `quality.ts` and `sellIn.ts` to ensure functions work correctly in isolation from `gilded-rose.ts`
+
+## Requirements
+
 ### Guidance Notes
 
 - Clone or fork this repo, and do this exercise in any of the available languages that you are most comfortable using.
@@ -15,7 +35,7 @@
 
 ### Requirements Specification
 
-Hi and welcome to team Gilded Rose. 
+Hi and welcome to team Gilded Rose.
 
 As you know, we are a small inn with a prime location in a prominent city ran by a friendly innkeeper named Allison. We also buy and sell only the finest goods. Unfortunately, our goods are constantly degrading in quality as they approach their sell by date. We have a system in place that updates our inventory for us. It was developed by a no-nonsense type named Leeroy, who has moved on to new adventures. Your task is to add the new feature to our system so that we can begin selling a new category of items. First an introduction to our system:
 
@@ -40,6 +60,6 @@ We have recently signed a supplier of conjured items. This requires an update to
 "Conjured" items degrade in Quality twice as fast as normal items
 ```
 
-Feel free to make any changes to the UpdateQuality method and add any new code as long as everything still works correctly. However __do not alter the Item class or Items property as those belong to the goblin in the corner who will insta-rage and one-shot you as he doesn't believe in shared code ownership__ (you can make the UpdateQuality method and Items property static if you like, we'll cover for you).
+Feel free to make any changes to the UpdateQuality method and add any new code as long as everything still works correctly. However **do not alter the Item class or Items property as those belong to the goblin in the corner who will insta-rage and one-shot you as he doesn't believe in shared code ownership** (you can make the UpdateQuality method and Items property static if you like, we'll cover for you).
 
 Just for clarification, an item can never have its Quality increase above 50, however "Sulfuras" is a legendary item and as such its Quality is 80 and it never alters.

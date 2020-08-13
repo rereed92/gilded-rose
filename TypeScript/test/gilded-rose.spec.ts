@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import { updateQuality } from '../app/gilded-rose';
 import {
-  ItemCategory,
   DefaultItem,
   BrieItem,
   LegendaryItem,
