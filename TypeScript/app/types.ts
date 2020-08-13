@@ -22,7 +22,7 @@ export class DefaultItem implements ICategorisedItem {
   quality: number;
   category = ItemCategory.Default;
 
-  constructor(name, sellIn, quality) {
+  constructor(name: string, sellIn: number, quality: number) {
     this.name = name;
     this.sellIn = sellIn;
     this.quality = quality;
@@ -36,7 +36,7 @@ export class BrieItem extends DefaultItem {
 export class LegendaryItem extends DefaultItem {
   category = ItemCategory.Legendary;
 
-  constructor(name, sellIn) {
+  constructor(name: string, sellIn: number) {
     super(name, sellIn, 80);
   }
 }

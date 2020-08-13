@@ -36,7 +36,7 @@ export const categoryUpdateQuality = (
           return updateCategoryQuality(quality, qualityModifier);
         }
       };
-    case ItemCategory.Sulfuras:
+    case ItemCategory.Legendary:
       return {
         updateQuality: (quality: number, sellIn: number): number => quality
       };

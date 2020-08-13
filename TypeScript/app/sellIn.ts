@@ -4,7 +4,7 @@ export const categoryUpdateSellIn = (
   category: ItemCategory
 ): IItemCategoryUpdateSellIn => {
   switch (category) {
-    case ItemCategory.Sulfuras:
+    case ItemCategory.Legendary:
       return {
         updateSellIn: (sellIn: number): number => sellIn
       };
