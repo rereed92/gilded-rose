@@ -164,31 +164,31 @@ describe('Gilded Rose', () => {
     });
   });
 
-  describe('Conjoured', () => {
-    const name = 'Conjoured';
+  describe('Conjured', () => {
+    const name = 'Conjured';
 
     it('should decrease the quality by two and sellIn value by one for an item', () => {
-      const counjouredItems = [new ConjuredItem(name, 2, 18)];
-      const items = updateQuality(counjouredItems);
+      const conjuredItems = [new ConjuredItem(name, 2, 18)];
+      const items = updateQuality(conjuredItems);
       expect(items[0].sellIn).to.equal(1);
       expect(items[0].quality).to.equal(16);
     });
 
     it('should decrease the quality by four once the sell by date has passed', () => {
-      const counjouredItems = [new ConjuredItem(name, -1, 10)];
-      const items = updateQuality(counjouredItems);
+      const conjuredItems = [new ConjuredItem(name, -1, 10)];
+      const items = updateQuality(conjuredItems);
       expect(items[0].quality).to.equal(6);
     });
 
     it('should ensure the quality does not go below zero once the sell by date has passed', () => {
-      const counjouredItems = [new ConjuredItem(name, -1, 1)];
-      const items = updateQuality(counjouredItems);
+      const conjuredItems = [new ConjuredItem(name, -1, 1)];
+      const items = updateQuality(conjuredItems);
       expect(items[0].quality).to.equal(0);
     });
 
     it('should never return a negative quality', () => {
-      const counjouredItems = [new ConjuredItem(name, 2, 1)];
-      const items = updateQuality(counjouredItems);
+      const conjuredItems = [new ConjuredItem(name, 2, 1)];
+      const items = updateQuality(conjuredItems);
       expect(items[0].quality).to.equal(0);
     });
   });
